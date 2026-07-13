@@ -36,7 +36,8 @@
     backdrop-filter:blur(8px);
     border-bottom:1px solid var(--panel-border);
   }
-  nav .wrap{display:flex; justify-content:flex-end; align-items:center; height:60px;}
+  nav .wrap{display:flex; justify-content:space-between; align-items:center; height:60px;}
+  nav .brand{font-size:0.9rem; font-weight:600; color:var(--text);}
   nav .links{display:flex; gap:28px; font-size:0.85rem;}
   nav .links a{color:var(--text-muted); text-decoration:none; transition:color 0.2s;}
   nav .links a:hover{color:var(--accent);}
@@ -125,21 +126,16 @@
   }
 
   /* ---------- Footer ---------- */
-  footer{border-top:1px solid var(--panel-border); padding:42px 0 60px;}
-  footer .wrap{display:flex; justify-content:space-between; align-items:center; flex-wrap:wrap; gap:16px;}
-  footer .links a{color:var(--text-muted); text-decoration:none; font-size:0.85rem; margin-left:22px;}
-  footer .links a:hover{color:var(--accent);}
+  footer{border-top:1px solid var(--panel-border); padding:36px 0; text-align:center;}
+  footer .wrap{display:block;}
   footer .copy{font-size:0.85rem; color:var(--text-muted);}
-
-  @media (max-width:640px){
-    footer .links a{margin-left:0; margin-right:16px;}
-  }
 </style>
 </head>
 <body>
 
 <nav>
   <div class="wrap">
+    <span class="brand">Melodie Showell — Game Audio</span>
     <div class="links">
       <a href="CV.pdf" target="_blank" rel="noopener">CV</a>
       <a href="https://www.linkedin.com/in/melodie-showell/" target="_blank" rel="noopener">LinkedIn</a>
@@ -200,13 +196,7 @@
 
 <footer id="contact">
   <div class="wrap">
-    <span class="copy">Melodie Showell — Game Audio</span>
-    <div class="links">
-      <a href="mailto:melodieshowell@gmail.com">Email</a>
-      <a href="https://www.linkedin.com/in/melodie-showell/" target="_blank" rel="noopener">LinkedIn</a>
-      <a href="CV.pdf" target="_blank" rel="noopener">CV</a>
-      <a href="https://www.imdb.com/name/nm16324046/" target="_blank" rel="noopener">IMDb</a>
-    </div>
+    <span class="copy">Thanks for stopping by.</span>
   </div>
 </footer>
 
