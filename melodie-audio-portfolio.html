@@ -1,0 +1,300 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Melodie Showell — Game Audio</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&family=Lora:ital,wght@0,400;0,500;1,400&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --bg:#F6F2EC;
+    --panel:#FFFFFF;
+    --panel-border:#E4DCD0;
+    --accent:#7A2E3C;
+    --accent-soft:#A85468;
+    --gold:#B08C4F;
+    --text:#2A231F;
+    --text-muted:#847A70;
+  }
+  *{box-sizing:border-box; margin:0; padding:0;}
+  html{scroll-behavior:smooth;}
+  body{
+    background:var(--bg);
+    color:var(--text);
+    font-family:'Lora', serif;
+    line-height:1.65;
+    -webkit-font-smoothing:antialiased;
+  }
+  h1,h2,h3{font-weight:500; letter-spacing:-0.01em;}
+  .display{
+    font-family:'Instrument Serif', serif;
+    font-style:italic;
+    font-weight:400;
+  }
+  .mono{font-family:'IBM Plex Mono', monospace; letter-spacing:0.02em;}
+  a{color:inherit;}
+  .wrap{max-width:920px; margin:0 auto; padding:0 28px;}
+
+  /* ---------- Nav ---------- */
+  nav{
+    position:sticky; top:0; z-index:10;
+    background:rgba(246,242,236,0.88);
+    backdrop-filter:blur(8px);
+    border-bottom:1px solid var(--panel-border);
+  }
+  nav .wrap{display:flex; justify-content:space-between; align-items:center; height:66px;}
+  nav .name{font-family:'Instrument Serif', serif; font-style:italic; font-size:1.3rem; color:var(--accent);}
+  nav .links{display:flex; gap:28px; font-size:0.85rem;}
+  nav .links a{color:var(--text-muted); text-decoration:none; transition:color 0.2s;}
+  nav .links a:hover{color:var(--accent);}
+
+  /* ---------- Hero ---------- */
+  header.hero{padding:120px 0 76px; border-bottom:1px solid var(--panel-border);}
+  .eyebrow{
+    font-family:'IBM Plex Mono', monospace;
+    font-size:0.74rem; color:var(--gold);
+    text-transform:uppercase; letter-spacing:0.16em;
+    margin-bottom:22px; display:block;
+  }
+  h1.headline{
+    font-family:'Instrument Serif', serif;
+    font-weight:400;
+    font-size:clamp(2.6rem, 6vw, 4.2rem);
+    line-height:1.12;
+    max-width:12em;
+    color:var(--text);
+  }
+  h1.headline em{
+    font-style:italic;
+    color:var(--accent);
+  }
+  .sub{
+    margin-top:24px;
+    font-size:1.08rem;
+    color:var(--text-muted);
+    max-width:38em;
+  }
+  .hero-meta{
+    display:flex; gap:32px; margin-top:42px;
+    font-size:0.82rem; color:var(--text-muted);
+    font-family:'IBM Plex Mono', monospace;
+    flex-wrap:wrap;
+  }
+  .hero-meta strong{color:var(--text); font-weight:500;}
+
+  /* ---------- Signal chain divider ---------- */
+  .chain{display:flex; align-items:center; justify-content:center; gap:0; padding:50px 0; flex-wrap:wrap;}
+  .chain-node{
+    font-family:'IBM Plex Mono', monospace;
+    font-size:0.72rem; color:var(--text-muted);
+    border:1px solid var(--panel-border);
+    background:var(--panel);
+    border-radius:3px; padding:8px 14px;
+    white-space:nowrap;
+  }
+  .chain-node.on{color:var(--accent); border-color:var(--accent-soft);}
+  .chain-line{width:38px; height:1px; background:var(--panel-border); position:relative;}
+  .chain-line::after{
+    content:''; position:absolute; right:0; top:-2px;
+    width:4px; height:4px; border-radius:50%; background:var(--gold);
+  }
+
+  /* ---------- Sections ---------- */
+  section{padding:68px 0;}
+  section.divider-top{border-top:1px solid var(--panel-border);}
+  h2.section-title{
+    font-family:'Instrument Serif', serif;
+    font-style:italic;
+    font-size:2rem;
+    color:var(--accent);
+    margin-bottom:12px;
+  }
+  .section-desc{color:var(--text-muted); max-width:42em; margin-bottom:40px; font-size:0.98rem;}
+
+  /* ---------- Video ---------- */
+  .video-frame{
+    width:100%; aspect-ratio:16/9;
+    background:var(--panel);
+    border:1px solid var(--panel-border);
+    border-radius:6px;
+    display:flex; align-items:center; justify-content:center;
+    color:var(--text-muted); font-size:0.85rem;
+    font-family:'IBM Plex Mono', monospace;
+    overflow:hidden;
+  }
+  .video-frame iframe{width:100%; height:100%; border:0;}
+
+  /* ---------- System cards ---------- */
+  .systems{display:grid; grid-template-columns:repeat(auto-fit, minmax(240px, 1fr)); gap:14px; margin-top:36px;}
+  .card{background:var(--panel); border:1px solid var(--panel-border); border-radius:6px; padding:24px;}
+  .card .tag{
+    font-family:'IBM Plex Mono', monospace; font-size:0.68rem;
+    color:var(--gold); text-transform:uppercase; letter-spacing:0.1em;
+    display:block; margin-bottom:10px;
+  }
+  .card h3{font-size:1.08rem; font-weight:500; margin-bottom:8px; font-family:'Lora', serif;}
+  .card p{font-size:0.9rem; color:var(--text-muted);}
+
+  /* ---------- Downloads ---------- */
+  .downloads{display:flex; flex-direction:column; gap:1px; background:var(--panel-border); border:1px solid var(--panel-border); border-radius:6px; overflow:hidden;}
+  .dl-row{
+    background:var(--panel); padding:17px 20px;
+    display:flex; justify-content:space-between; align-items:center;
+    text-decoration:none; transition:background 0.15s;
+  }
+  .dl-row:hover{background:#FBF7F1;}
+  .dl-row .dl-name{font-size:0.94rem; color:var(--text);}
+  .dl-row .dl-type{font-family:'IBM Plex Mono', monospace; font-size:0.72rem; color:var(--text-muted);}
+  .dl-arrow{color:var(--accent); font-family:'IBM Plex Mono', monospace;}
+
+  /* ---------- Future work placeholder ---------- */
+  .placeholder-card{
+    border:1px dashed var(--panel-border); border-radius:6px;
+    padding:34px; text-align:center; color:var(--text-muted); font-size:0.9rem;
+  }
+
+  /* ---------- Footer ---------- */
+  footer{border-top:1px solid var(--panel-border); padding:42px 0 60px;}
+  footer .wrap{display:flex; justify-content:space-between; align-items:center; flex-wrap:wrap; gap:16px;}
+  footer .links a{color:var(--text-muted); text-decoration:none; font-size:0.85rem; margin-left:22px;}
+  footer .links a:hover{color:var(--accent);}
+  footer .copy{font-family:'IBM Plex Mono', monospace; font-size:0.78rem; color:var(--text-muted);}
+
+  @media (max-width:640px){
+    .chain{gap:8px;}
+    .chain-line{width:20px;}
+    nav .links{gap:16px;}
+  }
+</style>
+</head>
+<body>
+
+<nav>
+  <div class="wrap">
+    <span class="name">Melodie Showell</span>
+    <div class="links">
+      <a href="#work">Work</a>
+      <a href="#downloads">Downloads</a>
+      <a href="#contact">Contact</a>
+    </div>
+  </div>
+</nav>
+
+<header class="hero">
+  <div class="wrap">
+    <span class="eyebrow">Audio Engineer → Game Audio / Voice Design</span>
+    <h1 class="headline">Systems that decide <em>which sound plays</em>, not just what it sounds like.</h1>
+    <p class="sub">
+      Senior audio engineer at Side, moving into interactive voice design. This is a working combat VO
+      system built in Wwise — Switch and Blend Container logic, real-time interrupts, ducking, and a
+      small Python/WAAPI tool for driving it live.
+    </p>
+    <div class="hero-meta">
+      <span><strong>Based:</strong> UK</span>
+      <span><strong>Currently:</strong> Side — Senior Audio Engineer</span>
+      <span><strong>Tools:</strong> Wwise · Reaper · WAAPI / Python</span>
+    </div>
+  </div>
+</header>
+
+<div class="chain wrap">
+  <span class="chain-node">Switch Container</span>
+  <span class="chain-line"></span>
+  <span class="chain-node">Blend Container</span>
+  <span class="chain-line"></span>
+  <span class="chain-node on">Random Container</span>
+  <span class="chain-line"></span>
+  <span class="chain-node">SoundEngine.postEvent()</span>
+</div>
+
+<section id="work">
+  <div class="wrap">
+    <h2 class="section-title">Combat VO System</h2>
+    <p class="section-desc">
+      A full walkthrough of the project — structure, reasoning, and the system running live via a
+      custom WAAPI controller.
+    </p>
+
+    <div class="video-frame">
+      <!-- Replace this iframe src with your Vimeo embed URL once the video is uploaded -->
+      <span>[ Video embed goes here — swap for your Vimeo iframe ]</span>
+    </div>
+
+    <div class="systems">
+      <div class="card">
+        <span class="tag">Character Selection</span>
+        <h3>Human / Werewolf branching</h3>
+        <p>Switch Container gating two fully independent effort-sound trees from a single Event.</p>
+      </div>
+      <div class="card">
+        <span class="tag">Nested RTPC Logic</span>
+        <h3>HP × Attack Level</h3>
+        <p>Blend Container bands driven by Player_HP, each containing a Switch Container for discrete Light/Heavy selection — no crossfaded VO layering.</p>
+      </div>
+      <div class="card">
+        <span class="tag">Interrupt</span>
+        <h3>Hit cancels taunt</h3>
+        <p>A single Event carries two Actions — Play the hit reaction, Stop the enemy taunt — so a landed hit always cuts the line cleanly.</p>
+      </div>
+      <div class="card">
+        <span class="tag">Mix Behaviour</span>
+        <h3>Ducking</h3>
+        <p>Player dialogue ducks the combat effort bus automatically, so inner-voice lines stay legible over unpredictable combat noise.</p>
+      </div>
+      <div class="card">
+        <span class="tag">Tooling</span>
+        <h3>WAAPI controller</h3>
+        <p>A small Python/Tkinter tool that drives the whole system externally — Events, RTPCs, and Switches — simulating what a game engine would send.</p>
+      </div>
+      <div class="card">
+        <span class="tag">Coming soon</span>
+        <h3>Post-processing + loudness pipeline</h3>
+        <p>Dialogue post-processing states and a Reaper → Wwise loudness-matching pass, in progress.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="downloads" class="divider-top">
+  <div class="wrap">
+    <h2 class="section-title">Downloads</h2>
+    <p class="section-desc">The Wwise project, the controller script, and the recording scripts used for this piece.</p>
+    <div class="downloads">
+      <a class="dl-row" href="#">
+        <span class="dl-name">Wwise project <span class="dl-type mono">(.zip)</span></span>
+        <span class="dl-arrow">→</span>
+      </a>
+      <a class="dl-row" href="#">
+        <span class="dl-name">WAAPI controller script <span class="dl-type mono">(combat_gui.py)</span></span>
+        <span class="dl-arrow">→</span>
+      </a>
+      <a class="dl-row" href="#">
+        <span class="dl-name">VO recording scripts <span class="dl-type mono">(.pdf)</span></span>
+        <span class="dl-arrow">→</span>
+      </a>
+    </div>
+  </div>
+</section>
+
+<section class="divider-top">
+  <div class="wrap">
+    <h2 class="section-title">More work</h2>
+    <p class="section-desc">This portfolio is a work in progress — more projects will be added here.</p>
+    <div class="placeholder-card">Next project — coming soon</div>
+  </div>
+</section>
+
+<footer id="contact">
+  <div class="wrap">
+    <span class="copy">Melodie Showell — Game Audio</span>
+    <div class="links">
+      <a href="mailto:you@example.com">Email</a>
+      <a href="#">LinkedIn</a>
+      <a href="#">CV</a>
+    </div>
+  </div>
+</footer>
+
+</body>
+</html>
