@@ -165,8 +165,8 @@
 
     <p class="project-title">Wwise Combat VO System</p>
     <p class="section-desc">
-      Video walkthrough of combat system, running via a custom WAAPI controller. Recorded by amateur
-      actors from home studios. Directed, edited & implemented by me.
+      Video walkthrough of combat system in Wwise, running via a custom WAAPI controller. VO recorded by amateur
+      actors from their home studios.
     </p>
 
     <div class="video-frame">
@@ -175,12 +175,12 @@
 <script src="https://player.vimeo.com/api/player.js"></script>
 
     <ul class="feature-list">
-      <li><strong>Human / Werewolf branching</strong> — Switch Container gating two fully independent effort-sound trees from a single Event.</li>
-      <li><strong>HP × Attack Level</strong> — Blend Container bands driven by Player_HP, each containing a Switch Container for discrete Light/Heavy selection, avoiding crossfaded VO layering.</li>
-      <li><strong>Hit cancels taunt</strong> — a single Event carries two Actions, Play the hit reaction and Stop the enemy taunt, so a landed hit always cuts the line cleanly.</li>
-      <li><strong>Ducking</strong> — player dialogue ducks the combat effort bus automatically, so inner-voice lines stay legible over unpredictable combat noise.</li>
-      <li><strong>WAAPI controller</strong> — a small Python/Tkinter tool that drives the whole system externally, Events, RTPCs, and Switches, simulating what a game engine would send.</li>
-      <li><strong>Coming soon</strong> — dialogue post-processing states and a Reaper → Wwise loudness-matching pass, in progress.</li>
+      <li><strong>WAAPI Controller</strong> — Python/Tkinter tool driving Events, RTPCs & Switches externally via ak.soundengine calls</li>
+      <li><strong>Character Type</strong> — Switch Container, Switch Group: Character_Type, mutually exclusive</li>
+      <li><strong>Attack Level</strong> — Switch Container per HP band, Switch Group: Attack_Level, Light/Heavy containing Random Container shuffling takes</li>
+      <li><strong>Player HP</strong> — Blend Container per type, Game Parameter: Player_HP, three ranges on continuous value 1-100</li>
+      <li><strong>Ducking</strong> — Player_Dialogue bus ducks Combat_Effort bus automatically on playback</li>
+      <li><strong>Processing</strong> — Werewolf: pitch & formant shift varied per take, EQ, compression, LUFS matching on all files</li>
     </ul>
   </div>
 </section>
@@ -188,7 +188,7 @@
 <section class="divider-top">
   <div class="wrap">
     <h2 class="section-title">More work</h2>
-    <p class="section-desc">This portfolio is WIP - more will be added.</p>
+    <p class="section-desc">This portfolio is WIP - more will be added soon</p>
     <div class="placeholder-card">Coming Soon</div>
   </div>
 </section>
